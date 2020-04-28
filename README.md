@@ -4,12 +4,10 @@ R package for maximum likelihood estimation of delay distributions of right-trun
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/andrew-edwards/rightTruncation.svg?branch=master)](https://travis-ci.org/andrew-edwards/rightTruncation)
+[![Codecov test coverage](https://codecov.io/gh/andrew-edwards/rightTruncation/branch/master/graph/badge.svg)](https://codecov.io/gh/andrew-edwards/rightTruncation?branch=master)
 <!-- badges: end -->
 
- <!-- [![Codecov test coverage](https://codecov.io/gh/andrew-edwards/sizeSpectra/branch/master/graph/badge.svg)](https://codecov.io/gh/andrew-edwards/sizeSpectra?branch=master) -->
-  <!-- badges: end -->
-
-## Description
+# Description
 
 For an epidemiological modelling study of the COVID-19 pandemic, we have dates on which new confirmed cases are reported in British Columbia, Canada; full details are given in our manuscript at https://www.medrxiv.org/content/10.1101/2020.04.17.20070086v1. For some of these case we also have dates of estimated onset of symptoms. These data are used to parameterise a Weibull distribution of the delay between symptom onset and a case being reported. The number of newly-symptomatic people each day is calculated in the epidemiological model (twelve coupled differential equations), and then, via the delay distribution and an observation model, compared to the number of reported cases at later dates. 
 
