@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+*~
+
+misc/*
+Meta
+lib/*
+*.tex
+*.pdf
+
+data-raw/*.RData
+
+doc
