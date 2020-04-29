@@ -12,3 +12,8 @@ lib/*
 data-raw/*.RData
 
 doc
+inst/doc
+
+vignettes/*.html
+vignettes/*.R
+slides/*

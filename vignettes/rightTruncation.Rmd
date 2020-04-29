@@ -1,0 +1,28 @@
+---
+title: "rightTruncation"
+author: "Andrew Edwards"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rightTruncation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 5.7,
+  fig.height = 7
+)
+```
+
+```{r setup}
+library(rightTruncation)
+```
+
+# Likelihood fitting of Weibull delay distribution to right-truncated data
+
+See the readme at <https://github.com/andrew-edwards/rightTruncation> for
+details, including link to the manuscript that contains the mathematical
+background. In particular, Appendix A.2 gives full details and derivations.
