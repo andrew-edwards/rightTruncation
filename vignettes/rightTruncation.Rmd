@@ -29,17 +29,42 @@ background. In particular, Appendix A.2 gives full details and derivations.
 
 The data in British Columbia, Canada, on individual cases are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
-of day $r$ and whose symptoms are estimated to have started on day $n$. If day
-$N$ is the final day of these data, then the full data set is $\{ h_{nr} \}_{n =
-0, 1, 2, ..., N; n \leq r \leq N}$, where, by definition, $h_{nr} = 0$ for $r <
-n$ because a case cannot be reported before the start of symptoms for these
-data. The counts are right-truncated on day $N$, since there are individuals
-whose symptoms started on day $n$ who will be reported in the future (after
-$N$), but we do not yet know when. The cases are considered to be reported at
-the end of day $r$ because there are values of $h_{nn} > 0$.
+of day $r$ and whose symptoms are estimated to have started on day $n$.
 
 An example simulated data set is
 ```{r simulated}
 h_nr_simulated <- h_nr_simulate(N = 10)
 h_nr_simulated
+```
+The matrix is upper diagonal (all the entries below the diagonal are
+zero) because $h_{nr} = 0$ for $r < n$, since a case cannot be reported before
+the start of symptoms.
+Day $N$ is the final day of the data ($N = 10$ in the example), such that the full data set is
+$\{ h_{nr} \}_{n = 0, 1, 2, ..., N; n \leq r \leq N}$.
+The counts are right-truncated on day $N$ -- there are individuals
+whose symptoms started on day $n$ who will be reported in the future (after
+$N$), but we do not yet know when. For example, for people whose symptoms
+started on day $n=8$, we only know about those whose cases were reported on days
+8, 9 and 10. Anyone who will have a delay between symptom onset and reporting that
+is longer than 2 days is not in our data set and, crucially, we don't even know about them yet.
+The cases are considered to be reported at
+the end of day $r$ because there are values of $h_{nn} > 0$. The example matrix
+is size 11x11 since days start at 0 and end at $N=10$.
+
+The maximum likelihood is calculated using:
+```{r likematrix, warning = FALSE}
+MLE.res = nlm(f = negLL.Weibull.counts.matrix,
+              p = c(3, 15),
+              h_nr = h_nr_simulated)
+```
+The main results of interest are the MLEs for $k$ and $\lambda$:
+```{r res}
+k_MLE <- MLE.res$estimate[1]
+lambda_MLE <- MLE.res$estimate[2]
+k_MLE      # shape
+lambda_MLE # scale
+mean_using_MLEs <- lambda_MLE * gamma(1 + 1/k_MLE)
+mean_using_MLEs
+median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
+median_using_MLEs
 ```
