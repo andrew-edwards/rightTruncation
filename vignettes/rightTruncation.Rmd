@@ -73,3 +73,6 @@ Wrapper function for simulating and estimating (default is $N=30$):
 ```{r simest}
 h_nr_one_sim_fit()
 ```
+
+Then do example in data frame format, which will be easier for translating real
+data (above one is good for explaining the subject).

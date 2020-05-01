@@ -2,4 +2,5 @@
 
 export(h_nr_one_sim_fit)
 export(h_nr_simulate)
+export(negLL.Weibull.counts.df)
 export(negLL.Weibull.counts.matrix)
