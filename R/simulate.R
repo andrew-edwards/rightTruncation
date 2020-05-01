@@ -8,6 +8,7 @@
 ##' @param k shape parameter of Weibull delay function
 ##' @param lambda scale parameter of Weibull delay function
 ##' @param N maximum day of reporting, days start at 0
+##' @param seed seed for random number generator
 ##' @return h_nr matrix of number of cases, with h_nr[n+1, r+1] corresponding to
 ##'   h_nr (since n and r start at 0)
 ##' @export
@@ -15,7 +16,9 @@
 h_nr_simulate <- function(num_cases = 100,
                           k = 2,
                           lambda = 9,
-                          N = 30){
+                          N = 30,
+                          seed = 42){
+  set.seed(seed)
   day_reported <- vector()
   #  the r for an individual
   h_nr <-  matrix(NA, N + 1, N + 1)

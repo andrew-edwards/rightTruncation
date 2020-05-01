@@ -11,7 +11,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = "",
   fig.width = 5.7,
   fig.height = 7
 )
@@ -27,7 +27,7 @@ See the readme at <https://github.com/andrew-edwards/rightTruncation> for
 details, including link to the manuscript that contains the mathematical
 background. In particular, Appendix A.2 gives full details and derivations.
 
-The data on individual cases (Figure~\ref{fig:symptoms}) give counts $h_{nr}$ of
+The data in British Columbia, Canada, on individual cases are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
 of day $r$ and whose symptoms are estimated to have started on day $n$. If day
 $N$ is the final day of these data, then the full data set is $\{ h_{nr} \}_{n =
