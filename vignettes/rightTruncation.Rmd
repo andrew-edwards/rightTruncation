@@ -53,14 +53,14 @@ is size 11x11 since days start at 0 and end at $N=10$.
 
 The maximum likelihood is calculated using:
 ```{r likematrix, warning = FALSE}
-MLE.res = nlm(f = negLL.Weibull.counts.matrix,
+MLE_res = nlm(f = negLL_Weibull_counts_matrix,
               p = c(3, 15),
               h_nr = h_nr_simulated)
 ```
 The main results of interest are the MLEs for $k$ and $\lambda$:
 ```{r res}
-k_MLE <- MLE.res$estimate[1]
-lambda_MLE <- MLE.res$estimate[2]
+k_MLE <- MLE_res$estimate[1]
+lambda_MLE <- MLE_res$estimate[2]
 k_MLE      # shape
 lambda_MLE # scale
 mean_using_MLEs <- lambda_MLE * gamma(1 + 1/k_MLE)

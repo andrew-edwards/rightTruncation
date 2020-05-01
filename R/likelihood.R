@@ -7,7 +7,7 @@
 ##' given count data. Returns the negative log-likelihood. The data are in the
 ##' form of a square matrix of dimension (N+1)x(N+1).
 ##' Will be called by `nlm()` or similar. This is more for explanation purposes
-##' -- use `negLL.Weibull.counts.df()` for real data since it should be faster
+##' -- use `negLL_Weibull_counts_df()` for real data since it should be faster
 ##' and is set up to do confidence intervals.
 ##'
 ##' @param p vector of parameter values `c(k, lambda)`, where `k` is the shape
@@ -20,7 +20,7 @@
 ##' @return negative log-likelihood of the parameters given the data
 ##' @export
 ##' @author Andrew Edwards
-negLL.Weibull.counts.matrix = function(p, h_nr){
+negLL_Weibull_counts_matrix = function(p, h_nr){
     k = p[1]
     lambda = p[2]
     Nplus1 = nrow(h_nr)                 # N+1 since row 1 is n=0
@@ -60,7 +60,7 @@ negLL.Weibull.counts.matrix = function(p, h_nr){
 ##'
 ##' @param init initial conditions for optimisation
 ##' @param ... inputs for `h_nr_simulate()`
-##' @return MLE.res output from nlm, a list containing components:
+##' @return MLE_res output from nlm, a list containing components:
 ##'  - `minimum`: minimum of negative log-likelihod
 ##'  - `estimate`: vector of MLEs of `k` and then `lambda`
 ##'  - `gradient`: vector of the gradient at the minimum (should be close to `c(0,0)`)
@@ -72,10 +72,10 @@ negLL.Weibull.counts.matrix = function(p, h_nr){
 h_nr_one_sim_fit <- function(init = c(3, 15),
                              ...){
   h_nr_sim <- h_nr_simulate(...)
-  MLE.res = nlm(f = negLL.Weibull.counts.matrix,
+  MLE_res = nlm(f = negLL_Weibull_counts_matrix,
                 p = init,
                 h_nr = h_nr_sim)
-  return(MLE.res)
+  return(MLE_res)
 }
 
 ##' Calculate negative log-likelihood for the Weibull distribution given count data
@@ -84,10 +84,10 @@ h_nr_one_sim_fit <- function(init = c(3, 15),
 ##' Calculate the negative log-likelihood of the parameters `k` and `lambda`
 ##' given count data. Returns the negative log-likelihood.
 ##' Will be called by `nlm()` or similar. Data are in a data frame format rather
-##' than matrix format (as in `negLL.Weibull.counts.matrix()`) since the matrix
+##' than matrix format (as in `negLL_Weibull_counts_matrix()`) since the matrix
 ##' will always be upper triangular (so using a long data frame should be
 ##' faster), and data frame is easier to obtain from real data. This is set up
-##' to do confidence intervals (unlike `negLL.Weibull.counts.matrix()`).
+##' to do confidence intervals (unlike `negLL_Weibull_counts_matrix()`).
 ##'
 ##' @param p vector of parameter values `c(k, lambda)` [shape and scale,
 ##'   respectively] for which to calculate the
@@ -106,7 +106,7 @@ h_nr_one_sim_fit <- function(init = c(3, 15),
 ##' @return negative log-likelihood of the parameters given the data
 ##' @export
 ##' @author Andrew Edwards
-negLL.Weibull.counts.df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
+negLL_Weibull_counts_df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
   if(length(p) == 1){      # Fix one at MLE for confidence interval calculation
     if(is.null(k_MLE)) {
       k = p
@@ -119,6 +119,7 @@ negLL.Weibull.counts.df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
     lambda = p[2]
   }
 
+  # Can probably simplify this since now using data frame.
   N = max(h_nr_df$r)
     sumlogLL = 0
     for(n_val in 0:N){            # nval in loop
@@ -145,8 +146,6 @@ negLL.Weibull.counts.df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
                                                          shape = k,
                                                          scale = lambda))),
                                0)
-          # if(is.na(loglike_nr[i,j])) browser() # stop("stopping")
-          # print(loglike_nr[i,j])
           sumlogLL = sumlogLL + loglike_inc
           loglike_inc = 0
         }

@@ -13,7 +13,7 @@ h_nr_one_sim_fit(init = c(3, 15), ...)
 \item{...}{inputs for `h_nr_simulate()`}
 }
 \value{
-MLE.res output from nlm, a list containing components:
+MLE_res output from nlm, a list containing components:
  - `minimum`: minimum of negative log-likelihod
  - `estimate`: vector of MLEs of `k` and then `lambda`
  - `gradient`: vector of the gradient at the minimum (should be close to `c(0,0)`)
