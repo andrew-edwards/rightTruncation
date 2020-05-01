@@ -5,18 +5,12 @@
 \title{Wrapper function for simulating one h_nr matrix and fitting with likelihood
 using `nlm()`}
 \usage{
-h_nr_one_sim_fit(num_cases = 100, k = 2, lambda = 9, N = 30)
+h_nr_one_sim_fit(init = c(3, 15), ...)
 }
 \arguments{
-\item{num_cases}{how many to simulate}
+\item{init}{initial conditions for optimisation}
 
-\item{k}{shape parameter of Weibull delay function}
-
-\item{lambda}{scale parameter of Weibull delay function}
-
-\item{N}{maximum day of reporting, days start at 0}
-
-\item{seed}{seed for random number generator}
+\item{...}{inputs for `h_nr_simulate()`}
 }
 \value{
 MLE.res output from nlm, a list containing components:

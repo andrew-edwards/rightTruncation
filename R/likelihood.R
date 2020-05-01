@@ -57,11 +57,8 @@ negLL.Weibull.counts.matrix = function(p, h_nr){
 ##' Wrapper function for simulating one h_nr matrix and fitting with likelihood
 ##' using `nlm()`
 ##'
-##' @param num_cases how many to simulate
-##' @param k shape parameter of Weibull delay function
-##' @param lambda scale parameter of Weibull delay function
-##' @param N maximum day of reporting, days start at 0
-##' @param seed seed for random number generator
+##' @param init initial conditions for optimisation
+##' @param ... inputs for `h_nr_simulate()`
 ##' @return MLE.res output from nlm, a list containing components:
 ##'  - `minimum`: minimum of negative log-likelihod
 ##'  - `estimate`: vector of MLEs of `k` and then `lambda`
@@ -71,13 +68,11 @@ negLL.Weibull.counts.matrix = function(p, h_nr){
 ##'  - `iterations`: number of iterations performed
 ##' @export
 ##' @author Andrew Edwards
-h_nr_one_sim_fit <- function(num_cases = 100, k = 2, lambda = 9, N = 30){
-  h_nr_sim <- h_nr_simulate(num_cases = num_cases,
-                            k = k,
-                            lambda = lambda,
-                            N = N)
+h_nr_one_sim_fit <- function(init = c(3, 15),
+                             ...){
+  h_nr_sim <- h_nr_simulate(...)
   MLE.res = nlm(f = negLL.Weibull.counts.matrix,
-                p = c(3, 15),
+                p = init,
                 h_nr = h_nr_sim)
   return(MLE.res)
 }

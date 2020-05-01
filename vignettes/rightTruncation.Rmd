@@ -68,3 +68,8 @@ mean_using_MLEs
 median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
 median_using_MLEs
 ```
+
+Wrapper function for simulating and estimating (default is $N=30$):
+```{r simest}
+h_nr_one_sim_fit()
+```
