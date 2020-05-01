@@ -4,7 +4,7 @@
 ##'
 ##' Returns a matrix (that's how I first did it), so modify at some point to
 ##'   return dataframe.
-##' @param num_cases how many to simulate
+##' @param num_cases how many cases to simulate
 ##' @param k shape parameter of Weibull delay function
 ##' @param lambda scale parameter of Weibull delay function
 ##' @param N maximum day of reporting, days start at 0

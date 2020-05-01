@@ -153,24 +153,6 @@ negLL_Weibull_likelihood_plot <- function(){
   # viridis::scale_fill_viridis()
 }
 
-##' Simulate one h_nr matrix and fit with likelihood
-##'
-##'
-##' @param num_cases
-##' @param k
-##' @param lambda
-##' @param N
-##' @return MLE.res output from nlm
-##' @export
-##' @author Andrew Edwards
-h_nr_one_sim_fit <- function(num_cases = 100, k = 2, lambda = 9, N = 30){
-  h_nr_sim <- h_nr_simulate(num_cases = num_cases,
-                            k = k,
-                            lambda = lambda,
-                            N = N)         # try ... again
-  MLE.res = nlm(f = negLL.Weibull.counts, p = c(3, 15), h_nr = h_nr_sim)
-  return(MLE.res)
-}
 
 # Profile log-likelihood method to calculate 95\% confidence interval.
 #  Taken directly from
