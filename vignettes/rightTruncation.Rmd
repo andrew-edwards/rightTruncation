@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "",
   fig.width = 5.7,
-  fig.height = 7
+  fig.height = 7,
+  warning = FALSE,
+  message = FALSE
 )
 ```
 
@@ -24,14 +26,16 @@ library(rightTruncation)
 # Likelihood fitting of Weibull delay distribution to right-truncated data
 
 See the readme at <https://github.com/andrew-edwards/rightTruncation> for
-details, including link to the manuscript that contains the mathematical
-background. In particular, Appendix A.2 gives full details and derivations.
+details, including the link to the manuscript that contains the mathematical
+background. In particular, Appendix A.2 gives full details and derivations. This
+vignette should be self-contained (without going into all the calculations) such
+that the functions can be applied to other data.
 
-The data in British Columbia, Canada, on individual cases are counts $h_{nr}$ of
+The data in British Columbia, Canada, are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
 of day $r$ and whose symptoms are estimated to have started on day $n$.
 
-An example simulated data set is
+An example simulated data set gives the values of $h_{nr}$ as a matrix:
 ```{r simulated}
 h_nr_simulated <- h_nr_simulate(N = 10)
 h_nr_simulated
@@ -39,8 +43,10 @@ h_nr_simulated
 The matrix is upper diagonal (all the entries below the diagonal are
 zero) because $h_{nr} = 0$ for $r < n$, since a case cannot be reported before
 the start of symptoms.
-Day $N$ is the final day of the data ($N = 10$ in the example), such that the full data set is
+Day $N$ is the final day of the data ($N = 10$ in the example), such that the
+non-zero values are
 $\{ h_{nr} \}_{n = 0, 1, 2, ..., N; n \leq r \leq N}$.
+
 The counts are right-truncated on day $N$ -- there are individuals
 whose symptoms started on day $n$ who will be reported in the future (after
 $N$), but we do not yet know when. For example, for people whose symptoms
@@ -51,13 +57,16 @@ The cases are considered to be reported at
 the end of day $r$ because there are values of $h_{nn} > 0$. The example matrix
 is size 11x11 since days start at 0 and end at $N=10$.
 
-The maximum likelihood is calculated using:
-```{r likematrix, warning = FALSE}
+The maximum likelihood is calculated by minimising the negative log-likelihood function:
+```{r likematrix}
 MLE_res = nlm(f = negLL_Weibull_counts_matrix,
               p = c(3, 15),
               h_nr = h_nr_simulated)
 ```
-The main results of interest are the MLEs for $k$ and $\lambda$:
+(Note that such code usually gives warnings about NaNs being produced during the
+optimisation; these have been suppressed in this vignette).
+The main results of interest are the MLEs for $k$ and $\lambda$, and also the
+resulting mean and median:
 ```{r res}
 k_MLE <- MLE_res$estimate[1]
 lambda_MLE <- MLE_res$estimate[2]
@@ -69,9 +78,11 @@ median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
 median_using_MLEs
 ```
 
-Wrapper function for simulating and estimating (default is $N=30$):
+Wrapper function for simulating the same data set and fitting it, just showing
+the fitted parameters here (the random number seed is fixed in the simulation
+function, hence the result is the same as above):
 ```{r simest}
-h_nr_one_sim_fit()
+h_nr_one_sim_fit(N=10)$estimate
 ```
 
 Then do example in data frame format, which will be easier for translating real
