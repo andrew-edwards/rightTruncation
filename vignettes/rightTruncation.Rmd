@@ -25,15 +25,17 @@ library(rightTruncation)
 
 # Likelihood fitting of Weibull delay distribution to right-truncated data
 
-See the readme at <https://github.com/andrew-edwards/rightTruncation> for
+This vignette should be self-contained (without going into all the calculations) such
+that the functions can be applied to other data.See the readme at
+<https://github.com/andrew-edwards/rightTruncation> for
 details, including the link to the manuscript that contains the mathematical
-background. In particular, Appendix A.2 gives full details and derivations. This
-vignette should be self-contained (without going into all the calculations) such
-that the functions can be applied to other data.
+background. In particular, Appendix A.2 gives full details and derivations.
 
 The data in British Columbia, Canada, are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
 of day $r$ and whose symptoms are estimated to have started on day $n$.
+
+## Simple matrix example
 
 An example simulated data set gives the values of $h_{nr}$ as a matrix:
 ```{r simulated}
@@ -84,6 +86,14 @@ function, hence the result is the same as above):
 ```{r simest}
 h_nr_one_sim_fit(N=10)$estimate
 ```
+
+## Simple data frame example
+
+Once we have much larger values of $N$ it makes more sense to use a long data
+frame format for the data, particularly since we know the matrix is always upper
+triangular.
+
+
 
 Then do example in data frame format, which will be easier for translating real
 data (above one is good for explaining the subject). Also plot some real or

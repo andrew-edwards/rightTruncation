@@ -2,5 +2,6 @@
 
 export(h_nr_one_sim_fit)
 export(h_nr_simulate)
+export(load_tidy_delay_data)
 export(negLL_Weibull_counts_df)
 export(negLL_Weibull_counts_matrix)
