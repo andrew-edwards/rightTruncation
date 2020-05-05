@@ -12,14 +12,15 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "",
-  fig.width = 5.7,
-  fig.height = 7,
+  fig.width = 4,
+  fig.height = 4,
   warning = FALSE,
   message = FALSE
 )
 ```
 
 ```{r setup}
+library(dplyr)
 library(rightTruncation)
 ```
 
@@ -87,11 +88,45 @@ function, hence the result is the same as above):
 h_nr_one_sim_fit(N=10)$estimate
 ```
 
-## Simple data frame example
+## Real data, analyse as a data frame
 
 Once we have much larger values of $N$ it makes more sense to use a long data
 frame format for the data, particularly since we know the matrix is always upper
 triangular.
+
+The actual data in British Columbia look like this (random noise has
+been added here because the data are not public), with a simple histogram:
+```{r, delaydata}
+delay_data
+time_report_vec = 0:(as.numeric(max(delay_data$time_to_report)) + 2)
+hist(as.numeric(delay_data$time_to_report),
+     breaks = time_report_vec,
+     right = FALSE,
+     xlab = "Time from symptom onset to reported case (days)",
+     main = "",
+     col = "lightgrey")
+```
+
+To see the individual cases as points, with barplots that summarise the values for each day.:
+```{r, cases}
+plotdelay1 <- plot_time_to_report(delay_data, x_axis = "onset",
+                                  xLim = c(lubridate::ymd("2020-02-28"),
+                                           max(delay_data$reported_date) + 2))
+plotdelay2 <- plot_time_to_report(delay_data,
+                                  xLim = c(lubridate::ymd("2020-02-28"),
+                                           max(delay_data$reported_date) + 2))
+```
+```{r, plots, fig.width = 8, fig.asp = 0.8}
+gridExtra::grid.arrange(
+             plotdelay1,
+             plotdelay2,
+             ncol=1)
+```
+
+By definition there can be no values above the dashed 1:1 line in the top panel,
+because the delays to reporting are too long (any cases will be reported in the
+future, with data only up to `r max(delay_data$reported_date)`.
+
 
 
 
