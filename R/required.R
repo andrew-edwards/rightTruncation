@@ -9,7 +9,6 @@
 #' @importFrom stats coef confint lm na.omit nlm predict qchisq quantile runif
 #' @importFrom utils data
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr if_else
 #'
 ## usethis namespace: end
 NULL

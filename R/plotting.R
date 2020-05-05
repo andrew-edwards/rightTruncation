@@ -28,7 +28,7 @@ plot_time_to_report <- function(data,
 
   if(x_axis == "reported"){
     p <- data %>% dplyr::filter(reported_date >= start_date_report) %>%
-      dplyr::mutate(weekday = if_else(lubridate::wday(reported_date) %in%
+      dplyr::mutate(weekday = dplyr::if_else(lubridate::wday(reported_date) %in%
                                       c(7,1),
                                       "Weekend",
                                       "Weekday")
@@ -54,7 +54,7 @@ plot_time_to_report <- function(data,
   if(x_axis == "onset"){
     p <- data %>%
       dplyr::filter(symptom_onset_date >= start_date_onset) %>%
-      dplyr::mutate(weekday = if_else(lubridate::wday(reported_date) %in%
+      dplyr::mutate(weekday = dplyr::if_else(lubridate::wday(reported_date) %in%
                                       c(7,1),
                                       "Weekend",
                                       "Weekday")
