@@ -138,22 +138,6 @@ summary(as.factor(h_nr_tibble$h_nr))
 ```
 
 To calculate the maximum likelihood estimates for $k$ and $\lambda$:
-```{r MLEdata}
-MLE <- nlm(f = negLL_Weibull_counts_df,
-           p = c(3,15),
-           h_nr_df = h_nr_tibble)
-
-k_MLE <- MLE$estimate[1]
-lambda_MLE <- MLE$estimate[2]
-k_MLE      # shape
-lambda_MLE # scale
-mean_using_MLEs <- lambda_MLE * gamma(1 + 1/k_MLE)
-mean_using_MLEs
-median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
-median_using_MLEs
-```
-
-Now try new tibble format, manually compare with above (then remove that if good):
 ```{r MLEtibble}
 MLE <- nlm(f = negLL_Weibull_counts_tibble,
            p = c(3,15),
