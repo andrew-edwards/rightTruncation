@@ -3,9 +3,10 @@
 \name{negLL_Weibull_counts_df}
 \alias{negLL_Weibull_counts_df}
 \title{Calculate negative log-likelihood for the Weibull distribution given count data
-that are right-truncated and are in a long tibble format}
+that are right-truncated and are in a long tibble format TODO test vs
+`_tibble` then delete me - `_tibble` is simplified}
 \usage{
-negLL_Weibull_counts_df(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL)
+negLL_Weibull_counts_df(p = c(3, 15), h_nr_df, k_MLE = NULL, lambda_MLE = NULL)
 }
 \arguments{
 \item{p}{vector of parameter values `c(k, lambda)` [shape and scale,
