@@ -126,6 +126,23 @@ By definition there can be no values above the dashed 1:1 line in the top panel,
 because the delays to reporting are too long (any cases will be reported in the
 future, with data only up to `r max(delay_data$reported_date)`.
 
+The actual values we need for the likelihood calculations are just counts
+$h_{nr}$ of the number of cases that had symptom onset on day $n$ and were
+reported on day $r$, where $n$ and $r$ take values from $0$ to $N$. This
+function converts the above tibble into the required form:
+```{r convert}
+h_nr_tibble <- make_h_nr_tibble(delay_data)
+h_nr_tibble
+# Show how many of each h_nr values there are:
+summary(as.factor(h_nr_tibble$h_nr))
+```
+
+To calculate the maximum likelihood estimates for $k$ and $\lambda$:
+```{r MLEdata}
+MLE <- nlm(f = negLL_Weibull_counts_df,
+           p = c(3, 15),
+           h_nr_df = h_nr_tibble)
+```
 
 
 

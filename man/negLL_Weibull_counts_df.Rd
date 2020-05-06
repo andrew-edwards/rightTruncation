@@ -3,7 +3,7 @@
 \name{negLL_Weibull_counts_df}
 \alias{negLL_Weibull_counts_df}
 \title{Calculate negative log-likelihood for the Weibull distribution given count data
-  that are right-truncated and are in a long data frame format}
+that are right-truncated and are in a long tibble format}
 \usage{
 negLL_Weibull_counts_df(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL)
 }
@@ -13,18 +13,18 @@ respectively] for which to calculate the
 negative log-likelihood, or just one or the other if `k_MLE` or `lambda_MLE`
 are specified (for univariate confidence intervals).}
 
-\item{h_nr_df}{dataframe of counts of numbers of individuals whose case was
-reported on day r and who first reported symptoms on day n. r and n start
-from 0. Dataframe has columns n, r and h_nr, which is more concise than
-the matrix formulation with lots of 0's. So h_{ab} in the math is
-filter(h_nr_df, n = a, r = b)$h_nr  (the pairwise combinations of n and r
+\item{h_nr_df}{tibble of counts of numbers of individuals whose case was
+reported on day `r` and who first reported symptoms on day `n`. `r` and `n` start
+from 0. Dataframe has columns `n`, `r` and `h_nr`, which is more concise than
+the matrix formulation with lots of 0's. So $h_{ab}$ in the math is
+`dplyr::filter(h_nr_df, n = a, r = b)$h_nr`  (the pairwise combinations of n and r
 are unique).}
 
-\item{k_MLE}{fixed value of k_MLE to use for calculating univariate
-confidence interval of lambda (needed since profLike is univariate)}
+\item{k_MLE}{fixed value of `k_MLE` to use for calculating univariate
+confidence interval of `lambda` (needed since `profLike()` is univariate)}
 
-\item{lambda_MLE}{fixed value of lambda_MLE to use for calculating univariate
-confidence interval of k.}
+\item{lambda_MLE}{fixed value of `lambda_MLE` to use for calculating univariate
+confidence interval of `k`.}
 }
 \value{
 negative log-likelihood of the parameters given the data
@@ -32,10 +32,10 @@ negative log-likelihood of the parameters given the data
 \description{
 Calculate the negative log-likelihood of the parameters `k` and `lambda`
 given count data. Returns the negative log-likelihood.
-Will be called by `nlm()` or similar. Data are in a data frame format rather
+Will be called by `nlm()` or similar. Data are in a data frame tibble format rather
 than matrix format (as in `negLL_Weibull_counts_matrix()`) since the matrix
 will always be upper triangular (so using a long data frame should be
-faster), and data frame is easier to obtain from real data. This is set up
+faster), and data frame is easier to obtain from real data. This is also set up
 to do confidence intervals (unlike `negLL_Weibull_counts_matrix()`).
 }
 \author{

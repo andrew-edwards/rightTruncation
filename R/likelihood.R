@@ -79,36 +79,39 @@ h_nr_one_sim_fit <- function(init = c(3, 15),
 }
 
 ##' Calculate negative log-likelihood for the Weibull distribution given count data
-##'   that are right-truncated and are in a long data frame format
+##' that are right-truncated and are in a long tibble format
 ##'
 ##' Calculate the negative log-likelihood of the parameters `k` and `lambda`
 ##' given count data. Returns the negative log-likelihood.
-##' Will be called by `nlm()` or similar. Data are in a data frame format rather
+##' Will be called by `nlm()` or similar. Data are in a data frame tibble format rather
 ##' than matrix format (as in `negLL_Weibull_counts_matrix()`) since the matrix
 ##' will always be upper triangular (so using a long data frame should be
-##' faster), and data frame is easier to obtain from real data. This is set up
+##' faster), and data frame is easier to obtain from real data. This is also set up
 ##' to do confidence intervals (unlike `negLL_Weibull_counts_matrix()`).
 ##'
 ##' @param p vector of parameter values `c(k, lambda)` [shape and scale,
 ##'   respectively] for which to calculate the
 ##'   negative log-likelihood, or just one or the other if `k_MLE` or `lambda_MLE`
 ##'   are specified (for univariate confidence intervals).
-##' @param h_nr_df dataframe of counts of numbers of individuals whose case was
-##'   reported on day r and who first reported symptoms on day n. r and n start
-##'   from 0. Dataframe has columns n, r and h_nr, which is more concise than
-##'   the matrix formulation with lots of 0's. So h_{ab} in the math is
-##'   filter(h_nr_df, n = a, r = b)$h_nr  (the pairwise combinations of n and r
+##' @param h_nr_df tibble of counts of numbers of individuals whose case was
+##'   reported on day `r` and who first reported symptoms on day `n`. `r` and `n` start
+##'   from 0. Dataframe has columns `n`, `r` and `h_nr`, which is more concise than
+##'   the matrix formulation with lots of 0's. So $h_{ab}$ in the math is
+##'   `dplyr::filter(h_nr_df, n = a, r = b)$h_nr`  (the pairwise combinations of n and r
 ##'   are unique).
-##' @param k_MLE fixed value of k_MLE to use for calculating univariate
-##'   confidence interval of lambda (needed since profLike is univariate)
-##' @param lambda_MLE fixed value of lambda_MLE to use for calculating univariate
-##'   confidence interval of k.
+##' @param k_MLE fixed value of `k_MLE` to use for calculating univariate
+##'   confidence interval of `lambda` (needed since `profLike()` is univariate)
+##' @param lambda_MLE fixed value of `lambda_MLE` to use for calculating univariate
+##'   confidence interval of `k`.
 ##' @return negative log-likelihood of the parameters given the data
 ##' @export
 ##' @author Andrew Edwards
-negLL_Weibull_counts_df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
+negLL_Weibull_counts_df = function(p,
+                                   h_nr_df,
+                                   k_MLE = NULL,
+                                   lambda_MLE = NULL){
   if(length(p) == 1){      # Fix one at MLE for confidence interval calculation
-    if(is.null(k_MLE)) {
+    if(is.null(k_MLE)){
       k = p
       lambda = lambda_MLE}
     if(is.null(lambda_MLE)){
@@ -124,8 +127,9 @@ negLL_Weibull_counts_df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
     sumlogLL = 0
     for(n_val in 0:N){            # nval in loop
       for(r_val in n_val:N){
-        h_nr_val <- dplyr::filter(h_nr_df, n == n_val & r == r_val) %>%
-          pull(h_nr)
+        h_nr_val <- dplyr::filter(h_nr_df,
+                                  n == n_val & r == r_val) %>%
+          dplyr::pull(h_nr)
         if(!(length(h_nr_val) == 0)){       # have data so need calculations
           if(length(h_nr_val) > 1){
             stop("h_nr_df should have unique combinations of r and n")}  # move
@@ -155,6 +159,5 @@ negLL_Weibull_counts_df = function(p, h_nr_df, k_MLE = NULL, lambda_MLE = NULL){
     #if(sumlogLL == 0) {sumlogLL = NA}
     neglogLL = - sumlogLL
     if(neglogLL < 1e-6) neglogLL = 10e10   # avoid NA's
-    # browser()
     return(neglogLL)
 }

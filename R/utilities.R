@@ -20,8 +20,8 @@
 ##' @export
 ##' @author Andrew Edwards
 make_h_nr_tibble <- function(input,
-                         day_0 = NULL,
-                         day_N = NULL){
+                             day_0 = NULL,
+                             day_N = NULL){
   if(is.null(day_0)) day_0 <- min(input$symptom_onset_date)
   if(is.null(day_N)) day_N <- max(input$reported_date)
 
