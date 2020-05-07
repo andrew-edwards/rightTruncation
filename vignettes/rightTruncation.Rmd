@@ -154,7 +154,6 @@ median_using_MLEs
 ```
 
 
-
 Then do example in data frame format, which will be easier for translating real
 data (above one is good for explaining the subject). Also plot some real or
 modified real data.
