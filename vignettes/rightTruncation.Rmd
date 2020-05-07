@@ -93,8 +93,8 @@ Once we have much larger values of $N$ it makes more sense to use a long data
 frame format for the data, particularly since we know the matrix is always upper
 triangular.
 
-The actual data in British Columbia look like this (random noise has
-been added here because the data are not public), with a simple histogram:
+The actual data in British Columbia look like this, with a simple histogram of
+the delay times between symptom onset and reporting of a case:
 ```{r, delaydata}
 delay_data
 time_report_vec = 0:(as.numeric(max(delay_data$time_to_report)) + 2)
@@ -153,7 +153,25 @@ median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
 median_using_MLEs
 ```
 
+For the manuscript, we used the data between February 29 and April 2:
+```{r manuscript}
+h_nr_manuscript <- make_h_nr_tibble(delay_data,
+                                    day_0 = lubridate::ymd("2020-02-29"),
+                                    day_N = lubridate::ymd("2020-04-02"))
+MLE_man <- nlm(f = negLL_Weibull_counts_tibble,
+               p = c(3,15),
+               h_nr_tibble = h_nr_manuscript)
+k_MLE_man <- MLE_man$estimate[1]
+lambda_MLE_man <- MLE_man$estimate[2]
+k_MLE_man      # shape
+lambda_MLE_man # scale
+mean_using_MLEs_man <- lambda_MLE_man * gamma(1 + 1/k_MLE_man)
+mean_using_MLEs_man
+median_using_MLEs_man <- lambda_MLE_man * (log(2))^(1/k_MLE_man)
+median_using_MLEs_man
+```
 
-Then do example in data frame format, which will be easier for translating real
-data (above one is good for explaining the subject). Also plot some real or
-modified real data.
+There are `r sum(h_nr_manuscript$h_nr)` individual cases there. In the
+manuscript we reported only 535, the difference being due to TODO [presumably
+updated data since the code was run for the manuscript]; difference is small
+($k_{MLE} = 1.73$ and $\lambda_{MLE} = 9.85$ in the manuscript).
