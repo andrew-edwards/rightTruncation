@@ -7,8 +7,9 @@
 #' @importFrom graphics abline axis box hist legend lines matlines mtext par
 #'   plot points rect segments strwidth text
 #' @importFrom stats coef confint lm na.omit nlm predict qchisq quantile runif
-#' @importFrom utils data
+#' @importFrom utils data read.csv
 #' @importFrom magrittr "%>%"
+#' @importFrom stats pweibull rweibull
 #'
 ## usethis namespace: end
 NULL
@@ -20,6 +21,14 @@ NULL
 if (getRversion() >= "2.15.1") utils::globalVariables(c("."))
 if (getRversion() >= "2.15.1") {
   utils::globalVariables(c(
-           "put_me_here"
+           "h_nr",
+           "n",
+           "r",
+           "reported_date",
+           "reported_day",
+           "symptom_onset_date",
+           "symptom_onset_day",
+           "time_to_report",
+           "weekday"
   ))
 }

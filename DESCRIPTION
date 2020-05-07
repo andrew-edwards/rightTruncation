@@ -13,7 +13,9 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     dplyr,
-    tibble
+    tibble,
+    lubridate,
+    magrittr
 Suggests:
     covr,
     knitr,
