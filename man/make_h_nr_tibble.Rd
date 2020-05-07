@@ -8,24 +8,24 @@ dates}
 make_h_nr_tibble(input, day_0 = NULL, day_N = NULL)
 }
 \arguments{
-\item{input}{tibble containing columns `reported_date`, `symptom_onset_date`
-(both dates) and `time_to_report` (numeric), such as `delay-data`}
+\item{input}{tibble containing columns \code{reported_date}, \code{symptom_onset_date}
+(both dates) and \code{time_to_report} (numeric), such as \code{delay-data}}
 
 \item{day_0}{date to consider as day 0. If NULL then uses
-`min(input$symptom_onset_date)`}
+\code{min(input$symptom_onset_date)}}
 
-\item{day_N}{date to consider as day N. If NULL then uses `max(input$reported_date)`}
+\item{day_N}{date to consider as day N. If NULL then uses \code{max(input$reported_date)}}
 }
 \value{
-tibble with columns `n`, `r` and `h_nr`
+tibble with columns \code{n}, \code{r} and \code{h_nr}
 }
 \description{
-Given a tibble (such as `delay_data`) with columns `reported_date`,
- `symptom_onset_date` (both dates) and `time_to_report` (numeric), create
- a tibble with columns `n` (symptom onset day), `r` (day of reporting) and
- `h_nr` (number of cases whose symptoms started on day `n` and case was
- reported on day `r`). Day start at 0, so $n, r \geq 0$. Do not need zero
- `h_nr` counts, so this is a bit easier to work with than the matrix form.
+Given a tibble (such as \code{delay_data}) with columns \code{reported_date},
+\code{symptom_onset_date} (both dates) and \code{time_to_report} (numeric), create
+a tibble with columns \code{n} (symptom onset day), \code{r} (day of reporting) and
+\code{h_nr} (number of cases whose symptoms started on day \code{n} and case was
+reported on day \code{r}). Day start at 0, so $n, r \\geq 0$. Do not need zero
+\code{h_nr} counts, so this is a bit easier to work with than the matrix form.
 TODO Needs expanding for ICU and hospitalisation data.
 }
 \author{

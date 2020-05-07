@@ -3,7 +3,7 @@
 \name{h_nr_simulate}
 \alias{h_nr_simulate}
 \title{Simulation functions
-Simulate numbers of cases with symptoms on day n that are reported on day r}
+Simulate numbers of cases with symptoms on day \code{n} that are reported on day \code{r}}
 \usage{
 h_nr_simulate(num_cases = 100, k = 2, lambda = 9, N = 30, seed = 42)
 }
@@ -19,12 +19,12 @@ h_nr_simulate(num_cases = 100, k = 2, lambda = 9, N = 30, seed = 42)
 \item{seed}{seed for random number generator}
 }
 \value{
-h_nr matrix of number of cases, with h_nr[n+1, r+1] corresponding to
-  h_nr (since n and r start at 0)
+h_nr matrix of number of cases, with \code{h_nr[n+1, r+1]} corresponding to
+\code{h_nr} (since \code{n} and \code{r} start at 0)
 }
 \description{
 Returns a matrix (that's how I first did it), so modify at some point to
-  return dataframe.
+return dataframe.
 }
 \author{
 Andrew Edwards

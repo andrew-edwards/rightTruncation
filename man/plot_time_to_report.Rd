@@ -23,20 +23,20 @@ plot_time_to_report(
 
 \item{show_weekends}{Highlight weekends or not}
 
-\item{x_axis}{Either `reported` to show date of case being reported, or
-`onset` for date of symptom onset}
+\item{x_axis}{Either \code{reported} to show date of case being reported, or
+\code{onset} for date of symptom onset}
 
 \item{xLim}{Limits of dates for x-axis}
 
 \item{yLab}{Label for y-axis}
 }
 \value{
-
+desired plot
 }
 \description{
 Bar plots for each day, plus points for each case. Adapted from Mike
- Irvine's code, could replace with Sean's later code that was used in the
- manuscript. Need bit more description.
+Irvine's code, could replace with Sean's later code that was used in the
+manuscript. Need bit more description.
 }
 \author{
 Andrew Edwards adapted from Mike Irvine's code

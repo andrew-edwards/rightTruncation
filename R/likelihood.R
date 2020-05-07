@@ -90,8 +90,8 @@ h_nr_one_sim_fit <- function(init = c(3, 15),
 ##' faster), and data frame is easier to obtain from real data. This is also set up
 ##' to do confidence intervals (unlike `negLL_Weibull_counts_matrix()`).
 ##'
-##' @param p vector of parameter values `c(k, lambda)` [shape and scale,
-##'   respectively] for which to calculate the
+##' @param p vector of parameter values `c(k, lambda)` (shape and scale,
+##'   respectively) for which to calculate the
 ##'   negative log-likelihood, or just one or the other if `k_MLE` or `lambda_MLE`
 ##'   are specified (for univariate confidence intervals).
 ##' @param h_nr_df tibble of counts of numbers of individuals whose case was
@@ -175,8 +175,8 @@ negLL_Weibull_counts_df = function(p = c(3, 15),
 ##' faster), and data frame is easier to obtain from real data. This is also set up
 ##' to do confidence intervals (unlike `negLL_Weibull_counts_matrix()`).
 ##'
-##' @param p vector of parameter values `c(k, lambda)` [shape and scale,
-##'   respectively] for which to calculate the
+##' @param p vector of parameter values `c(k, lambda)` (shape and scale,
+##'   respectively) for which to calculate the
 ##'   negative log-likelihood, or just one or the other if `k_MLE` or `lambda_MLE`
 ##'   are specified (for univariate confidence intervals).
 ##' @param h_nr_tibble tibble of counts of numbers of individuals whose case was

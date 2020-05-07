@@ -4,7 +4,6 @@
 ##'  Irvine's code, could replace with Sean's later code that was used in the
 ##'  manuscript. Need bit more description.
 ##'
-##'
 ##' @param data tibble with columns XX
 ##' @param start_date_report First date of reported case to show.
 ##' @param start_date_onset First date of symptom onset to show
@@ -13,7 +12,7 @@
 ##'   `onset` for date of symptom onset
 ##' @param xLim Limits of dates for x-axis
 ##' @param yLab Label for y-axis
-##' @return
+##' @return desired plot
 ##' @export
 ##' @author Andrew Edwards adapted from Mike Irvine's code
 plot_time_to_report <- function(data,

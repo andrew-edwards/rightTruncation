@@ -4,29 +4,29 @@
 \alias{negLL_Weibull_counts_matrix}
 \title{likelihood.R - functions for likelihood calculations
 Calculate negative log-likelihood for the Weibull distribution given count data
- that are right-truncated, with data as a matrix}
+that are right-truncated, with data as a matrix}
 \usage{
 negLL_Weibull_counts_matrix(p, h_nr)
 }
 \arguments{
-\item{p}{vector of parameter values `c(k, lambda)`, where `k` is the shape
-parameter and `lambda` is the scale parameter, for which to calculate the
+\item{p}{vector of parameter values \code{c(k, lambda)}, where \code{k} is the shape
+parameter and \code{lambda} is the scale parameter, for which to calculate the
 negative log-likelihood}
 
 \item{h_nr}{square matrix of counts of numbers of individuals whose case was
-reported on day `r` and who first reported symptoms on day `n`. `r` and `n` start
-from 0 so `h_nr[1, 1]` is $h_{0, 0}$ etc., i.e.  `h_nr[n+1, r+1]` is $h_{nr}$ in the
-mathematical derivations. `dim(h_nr)` is (N+1)x(N+1)}
+reported on day \code{r} and who first reported symptoms on day \code{n}. \code{r} and \code{n} start
+from 0 so \code{h_nr[1, 1]} is $h_{0, 0}$ etc., i.e.  \code{h_nr[n+1, r+1]} is $h_{nr}$ in the
+mathematical derivations. \code{dim(h_nr)} is (N+1)x(N+1)}
 }
 \value{
 negative log-likelihood of the parameters given the data
 }
 \description{
-Calculate the negative log-likelihood of the parameters `k` and `lambda`
+Calculate the negative log-likelihood of the parameters \code{k} and \code{lambda}
 given count data. Returns the negative log-likelihood. The data are in the
 form of a square matrix of dimension (N+1)x(N+1).
-Will be called by `nlm()` or similar. This is more for explanation purposes
--- use `negLL_Weibull_counts_df()` for real data since it should be faster
+Will be called by \code{nlm()} or similar. This is more for explanation purposes
+-- use \code{negLL_Weibull_counts_df()} for real data since it should be faster
 and is set up to do confidence intervals.
 }
 \author{

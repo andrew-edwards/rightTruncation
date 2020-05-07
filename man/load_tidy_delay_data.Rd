@@ -8,16 +8,15 @@ Load in the detailed linelist data and exclude un-needed columns}
 load_tidy_delay_data()
 }
 \value{
-list of two tibbles with columns `reported_date`, `symptom_onset_date and
-  `time_to_report` with each row corresponding to a positive test:
- - delay_data_with_outliers  -- with the outliers still included
- - delay_data                -- with outliers excluded, to use for analyses
+list of two tibbles with columns \code{reported_date}, \verb{symptom_onset_date and }time_to_report` with each row corresponding to a positive test:
+\itemize{
+\item delay_data_with_outliers  -- with the outliers still included
+\item delay_data                -- with outliers excluded, to use for analyses
+}
 }
 \description{
 Load in the detailed linelist data and exclude un-needed columns (that may
- want to be looked at some point) and outliers of negative delays and delays
- >30 days (since likely data-input errors). Data are not public (yet) and so
- this function will not work for everyone.
+want to be looked at some point) and outliers of negative delays and delays30 days (since likely data-input errors). Data are not public (yet) and sothis function will not work for everyone.
 }
 \author{
 Andrew Edwards

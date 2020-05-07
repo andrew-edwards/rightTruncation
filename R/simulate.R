@@ -1,6 +1,6 @@
 ##' Simulation functions
 
-##' Simulate numbers of cases with symptoms on day n that are reported on day r
+##' Simulate numbers of cases with symptoms on day `n` that are reported on day `r`
 ##'
 ##' Returns a matrix (that's how I first did it), so modify at some point to
 ##'   return dataframe.
@@ -9,8 +9,8 @@
 ##' @param lambda scale parameter of Weibull delay function
 ##' @param N maximum day of reporting, days start at 0
 ##' @param seed seed for random number generator
-##' @return h_nr matrix of number of cases, with h_nr[n+1, r+1] corresponding to
-##'   h_nr (since n and r start at 0)
+##' @return h_nr matrix of number of cases, with `h_nr[n+1, r+1]` corresponding to
+##'   `h_nr` (since `n` and `r` start at 0)
 ##' @export
 ##' @author Andrew Edwards
 h_nr_simulate <- function(num_cases = 100,
