@@ -27,7 +27,7 @@ Suggests:
     covr,
     knitr,
     rmarkdown
-Remotes: git::https://github.com/andrew-edwards/sizeSpectra.git
+Remotes: github::andrew-edwards/sizeSpectra
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
