@@ -205,3 +205,35 @@ lambda_confint <- profLike(negLL.Weibull.counts.df,
 lambda_confint  #  9.304579 10.462579   = 9.30-10.46
 # THEN check nlm works okay still
 ```
+
+# New Zealand data
+
+[This summarises from above what is needed]
+
+We would like to fit a Weibull distribution to data on the delays between a
+person having the onset of symptoms and them being reported as a confirmed cases
+of COVID-19 in New Zealand. The data we have in British Columbia is a tibble
+with these (self-explanatory) headings (final column is just difference between
+the first two):
+
+```{r NZ1}
+delay_data
+```
+
+This gets converted into the desired form for the likelihood function:
+
+```{r NZ2}
+h_nr_tibble <- make_h_nr_tibble(delay_data)
+h_nr_tibble
+```
+
+and the maximum likelihood calculation is then run using:
+```{r NZ3}
+MLE <- nlm(f = negLL_Weibull_counts_tibble,
+           p = c(3,15),
+           h_nr_tibble = h_nr_tibble)
+MLE
+```
+
+Please let me know what form the NZ data are in, and I can write a wrapper
+function to enable you to run the likelihood calculation.
