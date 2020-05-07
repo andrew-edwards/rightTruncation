@@ -21,11 +21,13 @@ Imports:
     magrittr,
     ggplot2,
     here,
-    gridExtra
+    gridExtra,
+    sizeSpectra
 Suggests:
     covr,
     knitr,
     rmarkdown
+Remotes: git::https://github.com/andrew-edwards/sizeSpectra.git
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2

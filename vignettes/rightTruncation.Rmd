@@ -175,3 +175,33 @@ There are `r sum(h_nr_manuscript$h_nr)` individual cases there. In the
 manuscript we reported only 535, the difference being due to TODO [presumably
 updated data since the code was run for the manuscript]; difference is small
 ($k_{MLE} = 1.73$ and $\lambda_{MLE} = 9.85$ in the manuscript).
+
+### Confidence intervals
+
+TODO:
+Have added sizeSpectra to DESCRIPTION, now test with this code from SIR-explore
+that I've only copied here:
+
+Do univariate ones (Bolker book implies they're often
+close to bivariate), set one parameter at MLE and
+get interval for the other (was not running every time in .Rmd since takes a while,
+so running once then putting results in):
+```{r conf, eval=FALSE}
+k_confint <- profLike(negLL.Weibull.counts.df,
+                      MLE = k_MLE,
+                      minNegLL = MLE.res$minimum,
+                      vecInc = 0.001,
+                      h_nr_df = h_nr_df,
+                      lambda_MLE = lambda_MLE)
+k_confint  #  1.603928 1.857928   = 1.60-1.86
+
+lambda_confint <- profLike(negLL.Weibull.counts.df,
+                      MLE = lambda_MLE,
+                      minNegLL = MLE.res$minimum,
+                      vecInc = 0.001,
+                      vecDiff = 0.65,
+                      h_nr_df = h_nr_df,
+                      k_MLE = k_MLE)
+lambda_confint  #  9.304579 10.462579   = 9.30-10.46
+# THEN check nlm works okay still
+```
