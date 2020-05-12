@@ -1,13 +1,15 @@
-rightTruncation
+# rightTruncation
 
 R package for maximum likelihood estimation of delay distributions of right-truncated data (as during COVID-19 pandemic)
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/andrew-edwards/rightTruncation.svg)](https://travis-ci.org/andrew-edwards/rightTruncation)
-[![Codecov test coverage](https://codecov.io/gh/andrew-edwards/rightTruncation/branch/master/graph/badge.svg)](https://codecov.io/gh/andrew-edwards/rightTruncation?branch=master)
+[![Travis build status](https://travis-ci.org/andrew-edwards/rightTruncation.svg?branch=master)](https://travis-ci.org/andrew-edwards/rightTruncation)
+<!-- [![Codecov test coverage](https://codecov.io/gh/andrew-edwards/rightTruncation/branch/master/graph/badge.svg)](https://codecov.io/gh/andrew-edwards/rightTruncation?branch=master) -->
 <!-- badges: end -->
 
 # Description
+
+Should build okay - click on the Travis link above to check (the badge is not currently working).
 
 **Under development** - the main code is written, just converting it into a package.
 
