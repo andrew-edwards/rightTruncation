@@ -10,10 +10,12 @@ lib/*
 *.pdf
 
 data-raw/*.RData
+data-raw/NZ_histogram.rds
 
 doc
 inst/doc
 
 vignettes/*.html
 vignettes/*.R
+vignettes/delay-hist-BC-NZ.png
 slides/*

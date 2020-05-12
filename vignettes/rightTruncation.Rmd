@@ -176,6 +176,48 @@ manuscript we reported only 535, the difference being due to TODO [presumably
 updated data since the code was run for the manuscript]; difference is small
 ($k_{MLE} = 1.73$ and $\lambda_{MLE} = 9.85$ in the manuscript).
 
+The following code is for plotting results for British Columbia and New Zealand,
+but is commented out because the New Zealand data cannot be made public.
+TODO: functionalise the plotting, and use BC as example.
+
+```{r MLEhist, eval=FALSE}
+png(filename = "delay-hist-BC-NZ.png",
+    width = 6.8*240,
+    height = 4.5*240,
+    res = 240)
+max_delay <- max(c(h_nr_manuscript$r - h_nr_manuscript$n, h_NZ$breaks) + 2)
+time_report_vec = seq(0, max_delay, by=0.1)
+
+h_NZ <- readRDS(paste0(here::here(), "/data-raw/NZ_histogram.rds"))
+
+time_report_BC = dweibull(time_report_vec,
+                          shape = k_MLE_man,
+                          scale = lambda_MLE_man) * sum(h_nr_manuscript$h_nr)
+time_report_NZ = dweibull(time_report_vec,
+                          shape = 1.53289,
+                          scale = 7.818021) * sum(h_NZ$counts)
+par(mfrow=c(1,2))
+hist(rep(h_nr_manuscript$r - h_nr_manuscript$n, h_nr_manuscript$h_nr),
+     breaks = 0:max_delay,
+     right = FALSE,
+     xlab = "Days from symptom onset to reporting",
+     main = "British Columbia",
+     col = "lightgrey")
+lines(time_report_vec,
+      time_report_BC,
+      col = "red",
+      lwd = 2)
+plot(h_NZ,
+     xlab = "Days from symptom onset to reporting",
+     main = "New Zealand",
+     col = "lightgrey")
+lines(time_report_vec,
+      time_report_NZ,
+      col = "red",
+      lwd = 2)
+dev.off()
+```
+
 ### Confidence intervals
 
 TODO:
