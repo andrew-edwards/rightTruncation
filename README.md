@@ -27,7 +27,9 @@ To install the latest version of `rightTruncation`:
 devtools::install_github("andrew-edwards/rightTruncation")
 ```
 
-If you get asked to update other packages, try saying 'none of them' (I've been okay lately).
+If you get asked to update other packages, try saying 'none of them' (I've been okay lately, and package works with R 4.0.0.0).
+
+You can view the vignette [directly here](http://htmlpreview.github.io/?https://github.com/andrew-edwards/rightTruncation/blob/master/doc/rightTruncation.html), or
 
 Then:
 ```

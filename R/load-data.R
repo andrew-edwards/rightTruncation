@@ -16,7 +16,8 @@
 ##' @author Andrew Edwards
 load_tidy_delay_data <- function(){
   linelist_latest_file <-
-    here::here("../CoronaModelsBC/nCoVDailyData/linelist/2019-nCoV_daily_linelist.csv")
+    # here::here("../CoronaModelsBC/nCoVDailyData/linelist/2019-nCoV_daily_linelist.csv")
+    here::here("../CoronaModelsBC/nCoVDailyData/HALinelist/BCCDC_HA_linelist.csv")
   if(!file.exists(linelist_latest_file)){
     stop(paste("You need to have the file ",
                linelist_latest_file,

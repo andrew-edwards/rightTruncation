@@ -31,7 +31,7 @@ that the functions can be applied to other data.See the readme at
 details, including the link to the manuscript that contains the mathematical
 background. In particular, Appendix A.2 gives full details and derivations.
 
-The data are counts $h_{nr}$ of
+The data in British Columbia, Canada, are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
 of day $r$ and whose symptoms are estimated to have started on day $n$.
 
