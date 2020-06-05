@@ -27,8 +27,8 @@ make_h_nr_tibble <- function(input,
 
   delay_1 = input %>%
     dplyr::group_by(reported_date, symptom_onset_date) %>%
-    dplyr::summarise(n()) %>%
-    dplyr::rename("h_nr" = "n()") %>%
+    dplyr::summarise("h_nr" = dplyr::n()) %>%
+    # dplyr::rename("h_nr" = "n()") %>%
     dplyr::filter(symptom_onset_date >= day_0 & reported_date <= day_N) %>%
     dplyr::mutate(reported_day = as.numeric(reported_date - day_0),
                   symptom_onset_day = as.numeric(symptom_onset_date - day_0))
