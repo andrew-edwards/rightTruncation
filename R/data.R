@@ -1,5 +1,5 @@
 ##' Raw data from British Columbia on time of symptom onset and time of
-##' reporting, with random noise added since data cannot be public
+##' reporting.
 ##'
 ##' From the linelist data, see `data-raw/symptom-to-report.R` for details.
 ##' @format A tibble with each row being a confirmed case (not all confirmed

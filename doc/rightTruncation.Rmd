@@ -31,7 +31,7 @@ that the functions can be applied to other data.See the readme at
 details, including the link to the manuscript that contains the mathematical
 background. In particular, Appendix A.2 gives full details and derivations.
 
-The data in British Columbia, Canada, are counts $h_{nr}$ of
+The data are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
 of day $r$ and whose symptoms are estimated to have started on day $n$.
 
@@ -124,7 +124,7 @@ gridExtra::grid.arrange(
 
 By definition there can be no values above the dashed 1:1 line in the top panel,
 because the delays to reporting are too long (any cases will be reported in the
-future, with data only up to `r max(delay_data$reported_date)`.
+future, with data only up to `r max(delay_data$reported_date)`).
 
 The actual values we need for the likelihood calculations are just counts
 $h_{nr}$ of the number of cases that had symptom onset on day $n$ and were
@@ -153,7 +153,19 @@ median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
 median_using_MLEs
 ```
 
-For the manuscript, we used the data between February 29 and April 2:
+When run in early May, the results were:
+```{r May, eval=FALSE}
+# k_MLE      # shape
+#  1.655612
+# lambda_MLE # scale
+#  9.901742
+# mean_using_MLEs
+#  8.851888
+# median_using_MLEs
+#  7.935406
+```
+
+For the first manuscript, we used the data between February 29 and April 2:
 ```{r manuscript}
 h_nr_manuscript <- make_h_nr_tibble(delay_data,
                                     day_0 = lubridate::ymd("2020-02-29"),
@@ -171,10 +183,13 @@ median_using_MLEs_man <- lambda_MLE_man * (log(2))^(1/k_MLE_man)
 median_using_MLEs_man
 ```
 
-There are `r sum(h_nr_manuscript$h_nr)` individual cases there. In the
-manuscript we reported only 535, the difference being due to TODO [presumably
-updated data since the code was run for the manuscript]; difference is small
-($k_{MLE} = 1.73$ and $\lambda_{MLE} = 9.85$ in the manuscript).
+There are `r sum(h_nr_manuscript$h_nr)` individual cases there. In the first
+manuscript we reported only 535, the difference being due to data being updated
+since the code was run for the manuscript; difference was small at one point,
+but now (early June) it is a bit larger
+($k_{MLE} = 1.73$ and $\lambda_{MLE} = 9.85$ in the manuscript). Note that we
+can't simply use the current data up to, say, May 1 to reproduce what we
+actually knew then.
 
 The following code is for plotting results for British Columbia and New Zealand,
 but is commented out because the New Zealand data cannot be made public.
@@ -218,39 +233,34 @@ lines(time_report_vec,
 dev.off()
 ```
 
-### Confidence intervals
+### Confidence intervals for the main results
 
-TODO:
-Have added sizeSpectra to DESCRIPTION, now test with this code from SIR-explore
-that I've only copied here:
-
-Do univariate ones (Bolker book implies they're often
+Do univariate conficence intervals (Ben Bolker's book implies they're often
 close to bivariate), set one parameter at MLE and
-get interval for the other (was not running every time in .Rmd since takes a while,
-so running once then putting results in):
-```{r conf, eval=FALSE}
-k_confint <- profLike(negLL.Weibull.counts.df,
-                      MLE = k_MLE,
-                      minNegLL = MLE.res$minimum,
-                      vecInc = 0.001,
-                      h_nr_df = h_nr_df,
-                      lambda_MLE = lambda_MLE)
-k_confint  #  1.603928 1.857928   = 1.60-1.86
+get interval for the other:
+```{r conf, eval=TRUE}
+k_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                   MLE = k_MLE,
+                                   minNegLL = MLE$minimum,
+                                   vecInc = 0.001,
+                                   h_nr_tibble = h_nr_tibble,
+                                   lambda_MLE = lambda_MLE)
+k_confint  #  In early May results were: 1.60-1.86
 
-lambda_confint <- profLike(negLL.Weibull.counts.df,
-                      MLE = lambda_MLE,
-                      minNegLL = MLE.res$minimum,
-                      vecInc = 0.001,
-                      vecDiff = 0.65,
-                      h_nr_df = h_nr_df,
-                      k_MLE = k_MLE)
-lambda_confint  #  9.304579 10.462579   = 9.30-10.46
-# THEN check nlm works okay still
+lambda_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                        MLE = lambda_MLE,
+                                        minNegLL = MLE$minimum,
+                                        vecInc = 0.001,
+                                        vecDiff = 0.65,
+                                        h_nr_tibble = h_nr_tibble,
+                                        k_MLE = k_MLE)
+lambda_confint  # In early May results were: 9.30-10.46
 ```
 
 # New Zealand data
 
-[This summarises from above what is needed]
+This summarises from above what is needed to apply to other jurisdictions, and
+was successfully used by colleagues in New Zealand.
 
 We would like to fit a Weibull distribution to data on the delays between a
 person having the onset of symptoms and them being reported as a confirmed cases
@@ -277,5 +287,6 @@ MLE <- nlm(f = negLL_Weibull_counts_tibble,
 MLE
 ```
 
-Please let me know what form the NZ data are in, and I can write a wrapper
+If you have data in other forms (or are not too familiar with tibbles) then
+please let me know (make an Issue) and I can write a wrapper
 function to enable you to run the likelihood calculation.

@@ -77,6 +77,16 @@ mean_using_MLEs
 median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
 median_using_MLEs
 
+## ----May, eval=FALSE----------------------------------------------------------
+#  # k_MLE      # shape
+#  #  1.655612
+#  # lambda_MLE # scale
+#  #  9.901742
+#  # mean_using_MLEs
+#  #  8.851888
+#  # median_using_MLEs
+#  #  7.935406
+
 ## ----manuscript---------------------------------------------------------------
 h_nr_manuscript <- make_h_nr_tibble(delay_data,
                                     day_0 = lubridate::ymd("2020-02-29"),
@@ -130,24 +140,23 @@ median_using_MLEs_man
 #        lwd = 2)
 #  dev.off()
 
-## ----conf, eval=FALSE---------------------------------------------------------
-#  k_confint <- profLike(negLL.Weibull.counts.df,
-#                        MLE = k_MLE,
-#                        minNegLL = MLE.res$minimum,
-#                        vecInc = 0.001,
-#                        h_nr_df = h_nr_df,
-#                        lambda_MLE = lambda_MLE)
-#  k_confint  #  1.603928 1.857928   = 1.60-1.86
-#  
-#  lambda_confint <- profLike(negLL.Weibull.counts.df,
-#                        MLE = lambda_MLE,
-#                        minNegLL = MLE.res$minimum,
-#                        vecInc = 0.001,
-#                        vecDiff = 0.65,
-#                        h_nr_df = h_nr_df,
-#                        k_MLE = k_MLE)
-#  lambda_confint  #  9.304579 10.462579   = 9.30-10.46
-#  # THEN check nlm works okay still
+## ----conf, eval=TRUE----------------------------------------------------------
+k_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                   MLE = k_MLE,
+                                   minNegLL = MLE$minimum,
+                                   vecInc = 0.001,
+                                   h_nr_tibble = h_nr_tibble,
+                                   lambda_MLE = lambda_MLE)
+k_confint  #  In early May results were: 1.60-1.86
+
+lambda_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                        MLE = lambda_MLE,
+                                        minNegLL = MLE$minimum,
+                                        vecInc = 0.001,
+                                        vecDiff = 0.65,
+                                        h_nr_tibble = h_nr_tibble,
+                                        k_MLE = k_MLE)
+lambda_confint  # In early May results were: 9.30-10.46
 
 ## ----NZ1----------------------------------------------------------------------
 delay_data
