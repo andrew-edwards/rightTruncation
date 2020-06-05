@@ -4,14 +4,16 @@
 \name{delay_data}
 \alias{delay_data}
 \title{Raw data from British Columbia on time of symptom onset and time of
-reporting, with random noise added since data cannot be public}
-\format{A tibble with each row being a confirmed case (not all confirmed
+reporting.}
+\format{
+A tibble with each row being a confirmed case (not all confirmed
 cases are here, only those with estimated date of symptom onset), and columns:
 \itemize{
 \item reported_date - date of case being reported (lubridate date format)
 \item symptom_onset_date - date of symptom onset of that case
 \item time_to_report - difference of first two columns, in days
-}}
+}
+}
 \source{
 Generated from running \code{data-raw/symptom-to-report.R}.
 }
