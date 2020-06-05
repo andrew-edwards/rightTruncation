@@ -348,8 +348,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">h_nr_one_sim_fit</span>(<span class="dt">N=</span><span class="dv">10</span>)<span class="op">$</span>estimate</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">[<span class="dv">1</span>] <span class="fl">2.105375</span> <span class="fl">8.240042</span></a></code></pre></div>
 </div>
-<div id="real-data-analyse-as-a-data-frame" class="section level2">
-<h2>Real data, analyse as a data frame</h2>
+</div>
+<div id="real-data-analyse-as-a-data-frame" class="section level1">
+<h1>Real data, analyse as a data frame</h1>
 <p>Once we have much larger values of <span class="math inline">\(N\)</span> it makes more sense to use a long data frame format for the data, particularly since we know the matrix is always upper triangular.</p>
 <p>The actual data in British Columbia look like this, with a simple histogram of the delay times between symptom onset and reporting of a case:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">delay_data</a>
@@ -426,6 +427,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb10-14" data-line-number="14">median_using_MLEs &lt;-<span class="st"> </span>lambda_MLE <span class="op">*</span><span class="st"> </span>(<span class="kw">log</span>(<span class="dv">2</span>))<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>k_MLE)</a>
 <a class="sourceLine" id="cb10-15" data-line-number="15">median_using_MLEs</a>
 <a class="sourceLine" id="cb10-16" data-line-number="16">[<span class="dv">1</span>] <span class="fl">6.800652</span></a></code></pre></div>
+<div id="same-analysis-from-early-may" class="section level2">
+<h2>Same analysis from early May</h2>
 <p>When run in early May, the results were:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># k_MLE      # shape</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#  1.655612</span></a>
@@ -435,6 +438,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#  8.851888</span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co"># median_using_MLEs</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#  7.935406</span></a></code></pre></div>
+</div>
+<div id="same-analysis-from-early-april" class="section level2">
+<h2>Same analysis from early April</h2>
 <p>For the first manuscript, we used the data between February 29 and April 2:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">h_nr_manuscript &lt;-<span class="st"> </span><span class="kw">make_h_nr_tibble</span>(delay_data,</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">                                    <span class="dt">day_0 =</span> lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="st">&quot;2020-02-29&quot;</span>),</a>
