@@ -26,10 +26,11 @@ library(rightTruncation)
 # Likelihood fitting of Weibull delay distribution to right-truncated data
 
 This vignette should be self-contained (without going into all the calculations) such
-that the functions can be applied to other data.See the readme at
+that the functions can be applied to other data. See the readme at
 <https://github.com/andrew-edwards/rightTruncation> for
 details, including the link to the manuscript that contains the mathematical
-background. In particular, Appendix A.2 gives full details and derivations.
+background. In particular, pages 8-12 of the Supplement give full details and
+derivations.
 
 The data are counts $h_{nr}$ of
 the number of individuals whose case was reported (test was positive) at the end
