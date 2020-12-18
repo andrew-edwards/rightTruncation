@@ -49,4 +49,3 @@ to run the vignette, or see it in the link above.
 
 Please report any problems as a [GitHub Issue](https://github.com/andrew-edwards/rightTruncation/issues), using a minimal working example if possible (and please check the closed issues first).
 
-If the green 'build passing' badge is not shown at the top of the page, try and download the package anyway (it is currently to do with migrating from travis-ci.org to travis-ci.com at the end of 2020).
