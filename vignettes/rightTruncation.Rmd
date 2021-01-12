@@ -154,7 +154,112 @@ median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
 median_using_MLEs
 ```
 
-## Same analysis from early May
+## Confidence intervals
+
+Do univariate conficence intervals (Ben Bolker's book implies they're often
+close to bivariate), set one parameter at MLE and
+get interval for the other:
+```{r conf, eval=TRUE}
+k_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                   MLE = k_MLE,
+                                   minNegLL = MLE$minimum,
+                                   vecInc = 0.001,
+                                   h_nr_tibble = h_nr_tibble,
+                                   lambda_MLE = lambda_MLE)
+k_confint  #  In early May results were: 1.60-1.86
+
+lambda_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                        MLE = lambda_MLE,
+                                        minNegLL = MLE$minimum,
+                                        vecInc = 0.001,
+                                        vecDiff = 0.65,
+                                        h_nr_tibble = h_nr_tibble,
+                                        k_MLE = k_MLE)
+lambda_confint  # In early May results were: 9.30-10.46
+```
+
+## Same analysis in early January 2021
+
+Repeating the analysis (without describing too much here) with data updated in
+early January 2021.
+```{r, delaydata21}
+data <- delay_data_2021_01_05   # Just change this line for future updates
+time_report_vec = 0:(as.numeric(max(data$time_to_report)) + 2)
+hist(as.numeric(data$time_to_report),
+     breaks = time_report_vec,
+     right = FALSE,
+     xlab = "Time from symptom onset to reported case (days)",
+     main = "",
+     col = "lightgrey")
+```
+
+To see the individual cases as points, with barplots that summarise the values for each day.:
+```{r, cases21}
+plotdelay1 <- plot_time_to_report(data, x_axis = "onset",
+                                  xLim = c(lubridate::ymd("2020-02-28"),
+                                           max(data$reported_date) + 2))
+plotdelay2 <- plot_time_to_report(data,
+                                  xLim = c(lubridate::ymd("2020-02-28"),
+                                           max(data$reported_date) + 2))
+```
+Bit hard to see, but shows a decrease in the delay from symptom onset to reported case:
+```{r, plots21, fig.width = 8, fig.asp = 0.8}
+gridExtra::grid.arrange(
+             plotdelay1,
+             plotdelay2,
+             ncol=1)
+```
+
+Convert the data into the required form:
+```{r convert21}
+h_nr_tibble <- make_h_nr_tibble(data)
+h_nr_tibble
+# Show how many of each h_nr values there are:
+summary(as.factor(h_nr_tibble$h_nr))
+```
+For the earlier example data set, there were far less cases, so far less
+distinct values of `h_nr` (a maximum of 11, meaning a maximum of 11 cases that
+had the same date of symptom onset and then were reported on the same day). The
+maximum now is `r max(h_nr_tibble$h_nr)`.
+
+To calculate the maximum likelihood estimates for $k$ and $\lambda$:
+```{r MLEtibble}
+MLE <- nlm(f = negLL_Weibull_counts_tibble,
+           p = c(3,15),
+           h_nr_tibble = h_nr_tibble)
+
+k_MLE <- MLE$estimate[1]
+lambda_MLE <- MLE$estimate[2]
+k_MLE      # shape
+lambda_MLE # scale
+mean_using_MLEs <- lambda_MLE * gamma(1 + 1/k_MLE)
+mean_using_MLEs
+median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
+median_using_MLEs
+```
+
+Confidence intervals calculated as in the main example:
+```{r conf21, eval=TRUE}
+k_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                   MLE = k_MLE,
+                                   minNegLL = MLE$minimum,
+                                   vecInc = 0.001,
+                                   h_nr_tibble = h_nr_tibble,
+                                   lambda_MLE = lambda_MLE)
+k_confint
+
+lambda_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                        MLE = lambda_MLE,
+                                        minNegLL = MLE$minimum,
+                                        vecInc = 0.001,
+                                        vecDiff = 0.65,
+                                        h_nr_tibble = h_nr_tibble,
+                                        k_MLE = k_MLE)
+lambda_confint
+```
+
+
+## Same analysis from early May 2020
 
 When run in early May, the results were:
 ```{r May, eval=FALSE}
@@ -168,7 +273,7 @@ When run in early May, the results were:
 #  7.935406
 ```
 
-## Same analysis from early April
+## Same analysis from early April 2020
 
 For the first manuscript, we used the data between February 29 and April 2:
 ```{r manuscript}
@@ -196,9 +301,10 @@ but now (early June) it is a bit larger
 can't simply use the current data up to, say, May 1 to reproduce what we
 actually knew then.
 
+## New Zealand data
+
 The following code is for plotting results for British Columbia and New Zealand,
 but is commented out because the New Zealand data cannot be made public.
-TODO: functionalise the plotting, and use BC as example.
 
 ```{r MLEhist, eval=FALSE}
 png(filename = "delay-hist-BC-NZ.png",
@@ -236,30 +342,6 @@ lines(time_report_vec,
       col = "red",
       lwd = 2)
 dev.off()
-```
-
-### Confidence intervals for the main results
-
-Do univariate conficence intervals (Ben Bolker's book implies they're often
-close to bivariate), set one parameter at MLE and
-get interval for the other:
-```{r conf, eval=TRUE}
-k_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
-                                   MLE = k_MLE,
-                                   minNegLL = MLE$minimum,
-                                   vecInc = 0.001,
-                                   h_nr_tibble = h_nr_tibble,
-                                   lambda_MLE = lambda_MLE)
-k_confint  #  In early May results were: 1.60-1.86
-
-lambda_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
-                                        MLE = lambda_MLE,
-                                        minNegLL = MLE$minimum,
-                                        vecInc = 0.001,
-                                        vecDiff = 0.65,
-                                        h_nr_tibble = h_nr_tibble,
-                                        k_MLE = k_MLE)
-lambda_confint  # In early May results were: 9.30-10.46
 ```
 
 # New Zealand data
