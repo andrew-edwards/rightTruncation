@@ -94,7 +94,7 @@ Once we have much larger values of $N$ it makes more sense to use a long data
 frame format for the data, particularly since we know the matrix is always upper
 triangular.
 
-The actual data in British Columbia look like this, with a simple histogram of
+The actual data in British Columbia (as of early June 2020) look like this, with a simple histogram of
 the delay times between symptom onset and reporting of a case:
 ```{r, delaydata}
 delay_data
