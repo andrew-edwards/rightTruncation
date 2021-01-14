@@ -259,6 +259,39 @@ lambda_confint_jan_21 <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
 lambda_confint_jan_21
 ```
 
+To see the fit:
+```{r fitjan21}
+time_report_vec_01 = seq(0,
+                         as.numeric(max(data$time_to_report)),
+                         by=0.1)
+
+# Showing the curve we used in manuscript as though it has jan 2021 total number
+#  of cases
+time_report_BC_man_now = dweibull(time_report_vec_01,
+                          shape = k_MLE_man,
+                          scale = lambda_MLE_man) * sum(h_nr_tibble$h_nr)
+time_report_BC_jan_21 = dweibull(time_report_vec_01,
+                          shape = k_MLE_jan_21,
+                          scale = lambda_MLE_jan_21) * sum(h_nr_tibble$h_nr)
+
+hist(as.numeric(data$time_to_report),
+     breaks = time_report_vec,
+     right = FALSE,
+     xlab = "Time from symptom onset to reported case (days)",
+     main = "",
+     col = "lightgrey")
+lines(time_report_vec_01,
+      time_report_BC_man_now,
+      col = "blue",
+      lwd = 2)
+lines(time_report_vec_01,
+      time_report_BC_jan_21,
+      col = "red",
+      lwd = 2)
+```
+
+Red is the January 2021 fit, blue is how fit we used in the paper would look
+for the sample size in January 2021.
 
 ## Same analysis from early May 2020
 
