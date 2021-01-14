@@ -210,7 +210,8 @@ gridExtra::grid.arrange(
              ncol=1)
 ```
 
-Convert the data into the required form:
+Convert the data into the required form (note -- not changing variable names until
+final results)
 ```{r convert21}
 h_nr_tibble <- make_h_nr_tibble(data)
 h_nr_tibble
@@ -223,39 +224,39 @@ had the same date of symptom onset and then were reported on the same day). The
 maximum now is `r max(h_nr_tibble$h_nr)`.
 
 To calculate the maximum likelihood estimates for $k$ and $\lambda$:
-```{r MLEtibble}
+```{r MLEtibble21}
 MLE <- nlm(f = negLL_Weibull_counts_tibble,
            p = c(3,15),
            h_nr_tibble = h_nr_tibble)
 
-k_MLE <- MLE$estimate[1]
-lambda_MLE <- MLE$estimate[2]
-k_MLE      # shape
-lambda_MLE # scale
-mean_using_MLEs <- lambda_MLE * gamma(1 + 1/k_MLE)
-mean_using_MLEs
-median_using_MLEs <- lambda_MLE * (log(2))^(1/k_MLE)
-median_using_MLEs
+k_MLE_jan_21 <- MLE$estimate[1]
+lambda_MLE_jan_21 <- MLE$estimate[2]
+k_MLE_jan_21      # shape
+lambda_MLE_jan_21 # scale
+mean_using_MLEs_jan_21 <- lambda_MLE_jan_21 * gamma(1 + 1/k_MLE_jan_21)
+mean_using_MLEs_jan_21
+median_using_MLEs_jan_21 <- lambda_MLE_jan_21 * (log(2))^(1/k_MLE_jan_21)
+median_using_MLEs_jan_21
 ```
 
 Confidence intervals calculated as in the main example:
 ```{r conf21, eval=TRUE}
-k_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
-                                   MLE = k_MLE,
+k_confint_jan_21 <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                   MLE = k_MLE_jan_21,
                                    minNegLL = MLE$minimum,
                                    vecInc = 0.001,
                                    h_nr_tibble = h_nr_tibble,
-                                   lambda_MLE = lambda_MLE)
-k_confint
+                                   lambda_MLE = lambda_MLE_jan_21)
+k_confint_jan_21
 
-lambda_confint <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
-                                        MLE = lambda_MLE,
+lambda_confint_jan_21 <- sizeSpectra::profLike(negLL_Weibull_counts_tibble,
+                                        MLE = lambda_MLE_jan_21,
                                         minNegLL = MLE$minimum,
                                         vecInc = 0.001,
                                         vecDiff = 0.65,
                                         h_nr_tibble = h_nr_tibble,
-                                        k_MLE = k_MLE)
-lambda_confint
+                                        k_MLE = k_MLE_jan_21)
+lambda_confint_jan_21
 ```
 
 
@@ -301,7 +302,7 @@ but now (early June) it is a bit larger
 can't simply use the current data up to, say, May 1 to reproduce what we
 actually knew then.
 
-## New Zealand data
+## New Zealand data and plotting
 
 The following code is for plotting results for British Columbia and New Zealand,
 but is commented out because the New Zealand data cannot be made public.
